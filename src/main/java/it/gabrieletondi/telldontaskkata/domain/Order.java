@@ -7,6 +7,7 @@ public class Order {
     private BigDecimal total;
     private String currency;
     private List<OrderItem> items;
+    private BigDecimal tax;
 
     public BigDecimal getTotal() {
         return total;
@@ -30,5 +31,13 @@ public class Order {
 
     public void setItems(List<OrderItem> items) {
         this.items = items;
+    }
+
+    public BigDecimal getTax() {
+        return tax;
+    }
+
+    public void setTax(BigDecimal tax) {
+        this.tax = tax;
     }
 }
