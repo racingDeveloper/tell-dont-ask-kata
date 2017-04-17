@@ -19,7 +19,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-public class SellItemUseCaseTest {
+public class OrderCreationUseCaseTest {
     private final TestOrderRepository orderRepository = new TestOrderRepository();
     private final ProductCatalog productCatalog = new InMemoryProductCatalog(
             Arrays.<Product>asList(
@@ -30,7 +30,7 @@ public class SellItemUseCaseTest {
     private final TaxRepository taxRepository = new InMemoryTaxRespository(new HashMap<String, BigDecimal>(){{
         put("food", new BigDecimal("10"));
     }});
-    private final SellItemUseCase useCase = new SellItemUseCase(orderRepository, productCatalog, taxRepository);
+    private final OrderCreationUseCase useCase = new OrderCreationUseCase(orderRepository, productCatalog, taxRepository);
 
     @Test
     public void sellMultipleItems() throws Exception {

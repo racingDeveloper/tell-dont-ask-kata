@@ -14,12 +14,12 @@ import java.util.ArrayList;
 import static java.math.BigDecimal.valueOf;
 import static java.math.RoundingMode.HALF_UP;
 
-public class SellItemUseCase {
+public class OrderCreationUseCase {
     private final OrderRepository orderRepository;
     private final ProductCatalog productCatalog;
     private final TaxRepository taxRepository;
 
-    public SellItemUseCase(OrderRepository orderRepository, ProductCatalog productCatalog, TaxRepository taxRepository) {
+    public OrderCreationUseCase(OrderRepository orderRepository, ProductCatalog productCatalog, TaxRepository taxRepository) {
         this.orderRepository = orderRepository;
         this.productCatalog = productCatalog;
         this.taxRepository = taxRepository;
