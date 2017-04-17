@@ -25,4 +25,4 @@ Feedback is welcome!
 
 How did you find the kata? Did you learn anything from it?
 
-Please contact me on twitter @racingDeveloper or use the GitHub repo wiki!
+Please contact me on twitter [@racingDeveloper](https://twitter.com/racingDeveloper) or use the GitHub repo wiki!
