@@ -14,14 +14,19 @@ public class OrderApprovalUseCase {
     public void run(OrderApprovalRequest request) {
         final Order order = orderRepository.getById(request.getOrderId());
 
+        if (order.getStatus().equals(OrderStatus.SHIPPED)) {
+            throw new ShippedOrdersCannotBeChangedException();
+        }
+
         if (request.isApproved() && order.getStatus().equals(OrderStatus.REJECTED)) {
             throw new RejectedOrderCannotBeApprovedException();
         }
-        else if(!request.isApproved() && order.getStatus().equals(OrderStatus.APPROVED)) {
-          throw new ApprovedOrderCannotBeRejectedException();
-        } else {
-            order.setStatus(request.isApproved() ? OrderStatus.APPROVED : OrderStatus.REJECTED);
-            orderRepository.save(order);
+
+        if (!request.isApproved() && order.getStatus().equals(OrderStatus.APPROVED)) {
+            throw new ApprovedOrderCannotBeRejectedException();
         }
+
+        order.setStatus(request.isApproved() ? OrderStatus.APPROVED : OrderStatus.REJECTED);
+        orderRepository.save(order);
     }
 }
