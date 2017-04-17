@@ -1,5 +1,5 @@
 # tell don't ask kata
-A legacy refactor kata, focused on the violation of the tell don't ask principle and the anemic domain model.
+A legacy refactor kata, focused on the violation of the [tell don't ask](https://pragprog.com/articles/tell-dont-ask) principle and the [anemic domain model](https://martinfowler.com/bliki/AnemicDomainModel.html).
 
 ## Instructions
 Here you find a simple order flow application. It's able to create orders, do some calculation (totals and taxes), and manage them (approval/reject and shipment).
