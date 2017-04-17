@@ -18,19 +18,22 @@ public class SellItemUseCase {
         this.productCatalog = productCatalog;
     }
 
-    public void run(SellItemRequest request) {
+    public void run(SellItemsRequest request) {
         Order order = new Order();
-
-        Product product = productCatalog.getByName(request.getProductName());
-
         order.setItems(new ArrayList<>());
-
         order.setCurrency("EUR");
-        order.setTotal(product.getPrice().multiply(BigDecimal.valueOf(request.getQuantity())));
-        final OrderItem orderItem = new OrderItem();
-        orderItem.setProduct(product);
-        orderItem.setQuantity(request.getQuantity());
-        order.getItems().add(orderItem);
+        order.setTotal(new BigDecimal("0.00"));
+
+        for (SellItemRequest itemRequest : request.getRequests()) {
+            Product product = productCatalog.getByName(itemRequest.getProductName());
+
+            order.setTotal(order.getTotal().add(product.getPrice().multiply(BigDecimal.valueOf(itemRequest.getQuantity()))));
+
+            final OrderItem orderItem = new OrderItem();
+            orderItem.setProduct(product);
+            orderItem.setQuantity(itemRequest.getQuantity());
+            order.getItems().add(orderItem);
+        }
 
         orderRepository.save(order);
     }
