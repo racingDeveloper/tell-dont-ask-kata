@@ -6,6 +6,7 @@ import it.gabrieletondi.telldontaskkata.doubles.TestOrderRepository;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 public class OrderApprovalUseCaseTest {
@@ -44,5 +45,21 @@ public class OrderApprovalUseCaseTest {
 
         final Order savedOrder = orderRepository.getSavedOrder();
         assertThat(savedOrder.getStatus(), is(OrderStatus.REJECTED));
+    }
+
+    @Test(expected = RejectedOrderCannotBeAcceptedException.class)
+    public void cannotAcceptRejectedOrder() throws Exception {
+        Order initialOrder = new Order();
+        initialOrder.setStatus(OrderStatus.REJECTED);
+        initialOrder.setId(1);
+        orderRepository.addOrder(initialOrder);
+
+        OrderApprovalRequest request = new OrderApprovalRequest();
+        request.setOrderId(1);
+        request.setApproved(true);
+
+        useCase.run(request);
+
+        assertThat(orderRepository.getSavedOrder(), is(nullValue()));
     }
 }

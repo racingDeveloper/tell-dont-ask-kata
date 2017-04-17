@@ -14,8 +14,11 @@ public class OrderApprovalUseCase {
     public void run(OrderApprovalRequest request) {
         final Order order = orderRepository.getById(request.getOrderId());
 
-        order.setStatus(request.isApproved() ? OrderStatus.APPROVED : OrderStatus.REJECTED);
-
-        orderRepository.save(order);
+        if (request.isApproved() && order.getStatus().equals(OrderStatus.REJECTED)) {
+            throw new RejectedOrderCannotBeAcceptedException();
+        } else {
+            order.setStatus(request.isApproved() ? OrderStatus.APPROVED : OrderStatus.REJECTED);
+            orderRepository.save(order);
+        }
     }
 }
