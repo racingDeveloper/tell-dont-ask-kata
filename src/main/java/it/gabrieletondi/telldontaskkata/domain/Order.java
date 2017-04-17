@@ -9,6 +9,7 @@ public class Order {
     private List<OrderItem> items;
     private BigDecimal tax;
     private OrderStatus status;
+    private int id;
 
     public BigDecimal getTotal() {
         return total;
@@ -48,5 +49,13 @@ public class Order {
 
     public void setStatus(OrderStatus status) {
         this.status = status;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
