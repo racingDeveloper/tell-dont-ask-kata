@@ -64,4 +64,15 @@ public class SellItemUseCaseTest {
         assertThat(insertedOrder.getItems().get(1).getTaxedAmount(), is(new BigDecimal("15.36")));
         assertThat(insertedOrder.getItems().get(1).getTax(), is(new BigDecimal("1.41")));
     }
+
+    @Test(expected = UnknownProductException.class)
+    public void unknownProduct() throws Exception {
+        SellItemsRequest request = new SellItemsRequest();
+        request.setRequests(new ArrayList<>());
+        SellItemRequest unknownProductRequest = new SellItemRequest();
+        unknownProductRequest.setProductName("unknown product");
+        request.getRequests().add(unknownProductRequest);
+
+        useCase.run(request);
+    }
 }
