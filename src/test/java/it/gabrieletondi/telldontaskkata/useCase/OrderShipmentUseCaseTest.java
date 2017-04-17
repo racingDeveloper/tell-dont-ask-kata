@@ -62,4 +62,20 @@ public class OrderShipmentUseCaseTest {
         assertThat(orderRepository.getSavedOrder(), is(nullValue()));
         assertThat(shipmentService.getShippedOrder(), is(nullValue()));
     }
+
+    @Test(expected = OrderCannotBeShippedTwiceException.class)
+    public void shippedOrdersCannotBeShippedAgain() throws Exception {
+        Order initialOrder = new Order();
+        initialOrder.setId(1);
+        initialOrder.setStatus(OrderStatus.SHIPPED);
+        orderRepository.addOrder(initialOrder);
+
+        OrderShipmentRequest request = new OrderShipmentRequest();
+        request.setOrderId(1);
+
+        useCase.run(request);
+
+        assertThat(orderRepository.getSavedOrder(), is(nullValue()));
+        assertThat(shipmentService.getShippedOrder(), is(nullValue()));
+    }
 }
