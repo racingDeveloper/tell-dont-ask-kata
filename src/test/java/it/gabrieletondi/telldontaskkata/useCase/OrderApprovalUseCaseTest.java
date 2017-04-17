@@ -47,8 +47,8 @@ public class OrderApprovalUseCaseTest {
         assertThat(savedOrder.getStatus(), is(OrderStatus.REJECTED));
     }
 
-    @Test(expected = RejectedOrderCannotBeAcceptedException.class)
-    public void cannotAcceptRejectedOrder() throws Exception {
+    @Test(expected = RejectedOrderCannotBeApprovedException.class)
+    public void cannotApproveRejectedOrder() throws Exception {
         Order initialOrder = new Order();
         initialOrder.setStatus(OrderStatus.REJECTED);
         initialOrder.setId(1);
@@ -57,6 +57,22 @@ public class OrderApprovalUseCaseTest {
         OrderApprovalRequest request = new OrderApprovalRequest();
         request.setOrderId(1);
         request.setApproved(true);
+
+        useCase.run(request);
+
+        assertThat(orderRepository.getSavedOrder(), is(nullValue()));
+    }
+
+    @Test(expected = ApprovedOrderCannotBeRejectedException.class)
+    public void cannotRejectApprovedOrder() throws Exception {
+        Order initialOrder = new Order();
+        initialOrder.setStatus(OrderStatus.APPROVED);
+        initialOrder.setId(1);
+        orderRepository.addOrder(initialOrder);
+
+        OrderApprovalRequest request = new OrderApprovalRequest();
+        request.setOrderId(1);
+        request.setApproved(false);
 
         useCase.run(request);
 
