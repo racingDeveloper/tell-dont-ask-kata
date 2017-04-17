@@ -28,4 +28,21 @@ public class OrderApprovalUseCaseTest {
         final Order savedOrder = orderRepository.getSavedOrder();
         assertThat(savedOrder.getStatus(), is(OrderStatus.APPROVED));
     }
+
+    @Test
+    public void rejectedExistingOrder() throws Exception {
+        Order initialOrder = new Order();
+        initialOrder.setStatus(OrderStatus.CREATED);
+        initialOrder.setId(1);
+        orderRepository.addOrder(initialOrder);
+
+        OrderApprovalRequest request = new OrderApprovalRequest();
+        request.setOrderId(1);
+        request.setApproved(false);
+
+        useCase.run(request);
+
+        final Order savedOrder = orderRepository.getSavedOrder();
+        assertThat(savedOrder.getStatus(), is(OrderStatus.REJECTED));
+    }
 }
