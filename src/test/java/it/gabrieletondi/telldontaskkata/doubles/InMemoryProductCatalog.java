@@ -1,4 +1,7 @@
-package it.gabrieletondi.telldontaskkata;
+package it.gabrieletondi.telldontaskkata.doubles;
+
+import it.gabrieletondi.telldontaskkata.domain.Product;
+import it.gabrieletondi.telldontaskkata.repository.ProductCatalog;
 
 import java.util.List;
 

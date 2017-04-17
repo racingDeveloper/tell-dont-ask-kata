@@ -1,4 +1,4 @@
-package it.gabrieletondi.telldontaskkata;
+package it.gabrieletondi.telldontaskkata.domain;
 
 import java.math.BigDecimal;
 

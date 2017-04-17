@@ -1,4 +1,7 @@
-package it.gabrieletondi.telldontaskkata;
+package it.gabrieletondi.telldontaskkata.doubles;
+
+import it.gabrieletondi.telldontaskkata.domain.Order;
+import it.gabrieletondi.telldontaskkata.repository.OrderRepository;
 
 public class TestOrderRepository implements OrderRepository {
     private Order insertedOrder;

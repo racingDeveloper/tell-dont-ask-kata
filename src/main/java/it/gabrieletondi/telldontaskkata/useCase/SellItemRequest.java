@@ -1,4 +1,4 @@
-package it.gabrieletondi.telldontaskkata;
+package it.gabrieletondi.telldontaskkata.useCase;
 
 public class SellItemRequest {
     private int quantity;
