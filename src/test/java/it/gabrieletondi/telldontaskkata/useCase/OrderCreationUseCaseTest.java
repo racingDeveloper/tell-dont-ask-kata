@@ -1,13 +1,12 @@
 package it.gabrieletondi.telldontaskkata.useCase;
 
+import it.gabrieletondi.telldontaskkata.domain.Category;
 import it.gabrieletondi.telldontaskkata.domain.Order;
 import it.gabrieletondi.telldontaskkata.domain.OrderStatus;
 import it.gabrieletondi.telldontaskkata.domain.Product;
 import it.gabrieletondi.telldontaskkata.doubles.InMemoryProductCatalog;
-import it.gabrieletondi.telldontaskkata.doubles.InMemoryTaxRespository;
 import it.gabrieletondi.telldontaskkata.doubles.TestOrderRepository;
 import it.gabrieletondi.telldontaskkata.repository.ProductCatalog;
-import it.gabrieletondi.telldontaskkata.repository.TaxRepository;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -21,16 +20,25 @@ import static org.junit.Assert.assertThat;
 
 public class OrderCreationUseCaseTest {
     private final TestOrderRepository orderRepository = new TestOrderRepository();
+    private Category food = new Category() {{
+        setName("food");
+        setTaxPercentage(new BigDecimal("10"));
+    }};;
     private final ProductCatalog productCatalog = new InMemoryProductCatalog(
             Arrays.<Product>asList(
-                    new Product() {{ setName("salad"); setPrice(new BigDecimal("3.56")); setCategory("food"); }},
-                    new Product() {{ setName("tomato"); setPrice(new BigDecimal("4.65")); setCategory("food"); }}
+                    new Product() {{
+                        setName("salad");
+                        setPrice(new BigDecimal("3.56"));
+                        setCategory(food);
+                    }},
+                    new Product() {{
+                        setName("tomato");
+                        setPrice(new BigDecimal("4.65"));
+                        setCategory(food);
+                    }}
             )
     );
-    private final TaxRepository taxRepository = new InMemoryTaxRespository(new HashMap<String, BigDecimal>(){{
-        put("food", new BigDecimal("10"));
-    }});
-    private final OrderCreationUseCase useCase = new OrderCreationUseCase(orderRepository, productCatalog, taxRepository);
+    private final OrderCreationUseCase useCase = new OrderCreationUseCase(orderRepository, productCatalog);
 
     @Test
     public void sellMultipleItems() throws Exception {

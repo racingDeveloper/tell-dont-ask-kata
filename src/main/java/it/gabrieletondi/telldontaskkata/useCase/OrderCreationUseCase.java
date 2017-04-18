@@ -6,7 +6,6 @@ import it.gabrieletondi.telldontaskkata.domain.OrderStatus;
 import it.gabrieletondi.telldontaskkata.domain.Product;
 import it.gabrieletondi.telldontaskkata.repository.OrderRepository;
 import it.gabrieletondi.telldontaskkata.repository.ProductCatalog;
-import it.gabrieletondi.telldontaskkata.repository.TaxRepository;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -17,12 +16,10 @@ import static java.math.RoundingMode.HALF_UP;
 public class OrderCreationUseCase {
     private final OrderRepository orderRepository;
     private final ProductCatalog productCatalog;
-    private final TaxRepository taxRepository;
 
-    public OrderCreationUseCase(OrderRepository orderRepository, ProductCatalog productCatalog, TaxRepository taxRepository) {
+    public OrderCreationUseCase(OrderRepository orderRepository, ProductCatalog productCatalog) {
         this.orderRepository = orderRepository;
         this.productCatalog = productCatalog;
-        this.taxRepository = taxRepository;
     }
 
     public void run(SellItemsRequest request) {
@@ -40,9 +37,7 @@ public class OrderCreationUseCase {
                 throw new UnknownProductException();
             }
             else {
-                BigDecimal taxPercentage = taxRepository.getTaxPercentageByCategory(product.getCategory());
-
-                final BigDecimal unitaryTax = product.getPrice().divide(valueOf(100)).multiply(taxPercentage).setScale(2, HALF_UP);
+                final BigDecimal unitaryTax = product.getPrice().divide(valueOf(100)).multiply(product.getCategory().getTaxPercentage()).setScale(2, HALF_UP);
                 final BigDecimal unitaryTaxedAmount = product.getPrice().add(unitaryTax).setScale(2, HALF_UP);
                 final BigDecimal taxedAmount = unitaryTaxedAmount.multiply(BigDecimal.valueOf(itemRequest.getQuantity())).setScale(2, HALF_UP);
                 final BigDecimal taxAmount = unitaryTax.multiply(BigDecimal.valueOf(itemRequest.getQuantity()));
