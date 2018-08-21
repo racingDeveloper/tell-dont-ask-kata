@@ -4,6 +4,6 @@ namespace TellDontAskKata.UseCase
 {
     public class SellItemsRequest
     {
-        public List<SellItemsRequest> Requests { get; set; }
+        public List<SellItemRequest> Requests { get; set; }
     }
 }
