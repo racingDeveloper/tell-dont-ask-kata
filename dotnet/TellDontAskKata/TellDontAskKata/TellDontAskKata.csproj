@@ -46,6 +46,7 @@
     <Compile Include="Domain\OrderStatus.cs" />
     <Compile Include="Domain\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\IOrderRepository.cs" />
     <Compile Include="Repository\IProductCatalog.cs" />
     <Compile Include="Service\IShipmentService.cs" />
   </ItemGroup>
