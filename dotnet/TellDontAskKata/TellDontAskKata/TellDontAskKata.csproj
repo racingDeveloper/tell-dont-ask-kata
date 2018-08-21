@@ -50,6 +50,9 @@
     <Compile Include="Repository\IProductCatalog.cs" />
     <Compile Include="UseCase\ApprovedOrderCannotBeRejectedException.cs" />
     <Compile Include="Service\IShipmentService.cs" />
+    <Compile Include="UseCase\OrderApprovalRequest.cs" />
+    <Compile Include="UseCase\ShippedOrdersCannotBeChangedException.cs" />
+    <Compile Include="UseCase\UnknownProductException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
