@@ -49,6 +49,7 @@
     <Compile Include="Repository\IOrderRepository.cs" />
     <Compile Include="Repository\IProductCatalog.cs" />
     <Compile Include="UseCase\ApprovedOrderCannotBeRejectedException.cs" />
+    <Compile Include="UseCase\OrderApprovalRequest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
