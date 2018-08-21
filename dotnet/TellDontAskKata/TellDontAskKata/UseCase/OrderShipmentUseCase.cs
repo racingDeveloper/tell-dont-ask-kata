@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TellDontAskKata.Domain;
+﻿using TellDontAskKata.Domain;
 using TellDontAskKata.Repository;
 using TellDontAskKata.Service;
 
@@ -23,22 +18,22 @@ namespace TellDontAskKata.UseCase
 
         public void Run(OrderShipmentRequest request)
         {
-            //Order order = this.orderRepository.GetById(request.OrderId);
+            Order order = this.orderRepository.GetById(request.OrderId);
 
-            //if (order.Status = OrderStatus.Created || order.Status == OrderStatus.Rejected)
-            //{
-            //    throw new OrderCannotBeShippedException();
-            //}
-            //
-            // if (order.getStatus().equals(SHIPPED))
-            // {
-            //     throw new OrderCannotBeShippedTwiceException();
-            // }
-            //
-            // shipmentService.ship(order);
+            if (order.Status == OrderStatus.Created || order.Status == OrderStatus.Rejected)
+            {
+                throw new OrderCannotBeShippedException();
+            }
 
-            // order.setStatus(OrderStatus.SHIPPED);
-            // orderRepository.save(order);
+             if (order.Status == OrderStatus.Shipped)
+             {
+                 throw new OrderCannotBeShippedTwiceException();
+             }
+            
+             shipmentService.Ship(order);
+
+            order.Status = OrderStatus.Shipped;
+            orderRepository.Save(order);
         }
     }
 }

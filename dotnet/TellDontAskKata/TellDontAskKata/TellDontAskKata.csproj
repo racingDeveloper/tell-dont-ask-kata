@@ -51,6 +51,8 @@
     <Compile Include="UseCase\ApprovedOrderCannotBeRejectedException.cs" />
     <Compile Include="Service\IShipmentService.cs" />
     <Compile Include="UseCase\OrderApprovalRequest.cs" />
+    <Compile Include="UseCase\OrderCannotBeShippedException.cs" />
+    <Compile Include="UseCase\OrderCannotBeShippedTwiceException.cs" />
     <Compile Include="UseCase\OrderShipmentRequest.cs" />
     <Compile Include="UseCase\OrderShipmentUseCase.cs" />
     <Compile Include="UseCase\RejectedOrderCannotBeApprovedException.cs" />
@@ -58,7 +60,6 @@
     <Compile Include="UseCase\ShippedOrdersCannotBeChangedException.cs" />
     <Compile Include="UseCase\UnknownProductException.cs" />
     <Compile Include="UseCase\OrderApprovalUseCase.cs" />
-    <Compile Include="UseCase\RejectedOrderCannotBeApprovedException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
