@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
+using TellDontAskKata.Domain;
+using TellDontAskKata.Repository;
 
 namespace TellDontAskKata.Tests.Doubles
 {
-    using System.Linq;
-
-    using TellDontAskKata.Domain;
-    using TellDontAskKata.Repository;
     public class InMemoryProductCatalog : IProductCatalog
     {
         private readonly IEnumerable<Product> products;
