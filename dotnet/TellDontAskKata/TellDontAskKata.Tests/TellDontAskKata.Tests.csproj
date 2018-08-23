@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Doubles\InMemoryProductCatalog.cs" />
     <Compile Include="Doubles\TestOrderRepository.cs" />
+    <Compile Include="Doubles\TestShipmentService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
