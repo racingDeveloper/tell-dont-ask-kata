@@ -60,6 +60,7 @@
     <Compile Include="Doubles\TestOrderRepository.cs" />
     <Compile Include="Doubles\TestShipmentService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UseCases\OrderApprovalUseCaseTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
