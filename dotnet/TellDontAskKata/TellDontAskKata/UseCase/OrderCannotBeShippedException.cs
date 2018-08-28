@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace TellDontAskKata.UseCase
 {
     [Serializable]
-    internal class OrderCannotBeShippedException : Exception
+    public class OrderCannotBeShippedException : Exception
     {
         public OrderCannotBeShippedException()
         {
