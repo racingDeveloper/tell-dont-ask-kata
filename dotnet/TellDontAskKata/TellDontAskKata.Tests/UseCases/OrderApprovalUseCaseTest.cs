@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using TellDontAskKata.Domain;
+using TellDontAskKata.Tests.Doubles;
+using TellDontAskKata.UseCase;
+
+using Xunit;
 
 namespace TellDontAskKata.Tests.UseCases
 {
-    using TellDontAskKata.Domain;
-    using TellDontAskKata.Tests.Doubles;
-    using TellDontAskKata.UseCase;
-
-    using Xunit;
-
     public class OrderApprovalUseCaseTest
     {
         private TestOrderRepository orderRepository;
