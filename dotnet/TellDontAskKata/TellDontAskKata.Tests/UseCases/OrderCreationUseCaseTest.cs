@@ -40,35 +40,45 @@ namespace TellDontAskKata.Tests.UseCases
         [Fact]
         public void SellMultipleItems()
         {
-            SellItemRequest saladRequest = new SellItemRequest();
-            saladRequest.ProductName = "salad";
-            saladRequest.Quantity = 2;
+            SellItemRequest saladRequest = new SellItemRequest
+            {
+                ProductName = "salad",
+                Quantity = 2
+            };
 
-            SellItemRequest tomatoRequest = new SellItemRequest();
-            tomatoRequest.ProductName = "tomato";
-            tomatoRequest.Quantity = 3;
+            SellItemRequest tomatoRequest = new SellItemRequest
+            {
+                ProductName = "tomato",
+                Quantity = 3
+            };
 
-            SellItemsRequest request = new SellItemsRequest();
-            request.Requests = new List<SellItemRequest> { saladRequest, tomatoRequest };
+            SellItemsRequest request =
+                new SellItemsRequest
+                {
+                    Requests = new List<SellItemRequest>
+                    {
+                        saladRequest, tomatoRequest
+                    }
+                };
 
             useCase.Run(request);
 
             Order insertedOrder = orderRepository.SavedOrder;
-            Assert.Equal(insertedOrder.Status, OrderStatus.Created);
-            Assert.Equal(insertedOrder.Total, new decimal(23.20));
-            Assert.Equal(insertedOrder.Tax, new decimal(2.13));
-            Assert.Equal(insertedOrder.Currency, "EUR");
-            Assert.Equal(insertedOrder.Items.Count, 2);
-            Assert.Equal(insertedOrder.Items[0].Product.Name, "salad");
-            Assert.Equal(insertedOrder.Items[0].Product.Price, new decimal(3.56));
-            Assert.Equal(insertedOrder.Items[0].Quantity, 2);
-            Assert.Equal(insertedOrder.Items[0].TaxedAmount, new decimal(7.84));
-            Assert.Equal(insertedOrder.Items[0].Tax, new decimal(0.72));
-            Assert.Equal(insertedOrder.Items[1].Product.Name, "tomato");
-            Assert.Equal(insertedOrder.Items[1].Product.Price, new decimal(4.65));
-            Assert.Equal(insertedOrder.Items[1].Quantity, 3);
-            Assert.Equal(insertedOrder.Items[1].TaxedAmount, new decimal(15.36));
-            Assert.Equal(insertedOrder.Items[1].Tax, new decimal(1.41));
+            Assert.Equal(OrderStatus.Created, insertedOrder.Status);
+            Assert.Equal(23.20m, insertedOrder.Total);
+            Assert.Equal(2.13m, insertedOrder.Tax);
+            Assert.Equal("EUR", insertedOrder.Currency);
+            Assert.Equal(2, insertedOrder.Items.Count);
+            Assert.Equal("salad", insertedOrder.Items[0].Product.Name);
+            Assert.Equal(3.56m, insertedOrder.Items[0].Product.Price);
+            Assert.Equal(2, insertedOrder.Items[0].Quantity);
+            Assert.Equal(7.84m, insertedOrder.Items[0].TaxedAmount);
+            Assert.Equal(0.72m, insertedOrder.Items[0].Tax);
+            Assert.Equal("tomato", insertedOrder.Items[1].Product.Name);
+            Assert.Equal(4.65m, insertedOrder.Items[1].Product.Price);
+            Assert.Equal(3, insertedOrder.Items[1].Quantity);
+            Assert.Equal(15.36m, insertedOrder.Items[1].TaxedAmount);
+            Assert.Equal(1.41m, insertedOrder.Items[1].Tax);
         }
 
         [Fact]
