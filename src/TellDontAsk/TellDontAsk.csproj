@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="Repository\OrderRepository.cs" />
+    <None Include="Repository\ProductCatalog.cs" />
+    <None Include="Service\ShipmentService.cs" />
+    <None Include="UseCase\ApprovedOrderCannotBeRejectedException.cs" />
+    <None Include="UseCase\OrderApprovalRequest.cs" />
+    <None Include="UseCase\OrderApprovalUseCase.cs" />
+    <None Include="UseCase\OrderCannotBeShippedException.cs" />
+    <None Include="UseCase\OrderCannotBeShippedTwiceException.cs" />
+    <None Include="UseCase\OrderCreationUseCase.cs" />
+    <None Include="UseCase\OrderShipmentRequest.cs" />
+    <None Include="UseCase\OrderShipmentUseCase.cs" />
+    <None Include="UseCase\RejectedOrderCannotBeApprovedException.cs" />
+    <None Include="UseCase\SellItemRequest.cs" />
+    <None Include="UseCase\SellItemsRequest.cs" />
+    <None Include="UseCase\ShippedOrdersCannotBeChangedException.cs" />
+    <None Include="UseCase\UnknownProductException.cs" />
+  </ItemGroup>
+
+</Project>
