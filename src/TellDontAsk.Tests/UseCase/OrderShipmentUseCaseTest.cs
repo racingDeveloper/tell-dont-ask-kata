@@ -1,83 +1,90 @@
-//namespace TellDontAsk.Tests.UseCase
-//{package it.gabrieletondi.telldontaskkata.useCase;
+using TellDontAsk.Domain;
+using TellDontAsk.Tests.Doubles;
+using TellDontAsk.UseCase;
+using Xunit;
 
-//    import it.gabrieletondi.telldontaskkata.domain.Order;
-//    import it.gabrieletondi.telldontaskkata.domain.OrderStatus;
-//    import it.gabrieletondi.telldontaskkata.doubles.TestOrderRepository;
-//    import it.gabrieletondi.telldontaskkata.doubles.TestShipmentService;
-//    import org.junit.Test;
+namespace TellDontAsk.Tests.UseCase
+{
 
-//    import static org.hamcrest.Matchers.is;
-//    import static org.hamcrest.Matchers.nullValue;
-//    import static org.junit.Assert.assertThat;
+    public class OrderShipmentUseCaseTest
+    {
+        private readonly TestOrderRepository orderRepository;
+        private readonly TestShipmentService shipmentService;
+        private readonly OrderShipmentUseCase useCase;
 
-//    public class OrderShipmentUseCaseTest {
-//        private final TestOrderRepository orderRepository = new TestOrderRepository();
-//        private final TestShipmentService shipmentService = new TestShipmentService();
-//        private final OrderShipmentUseCase useCase = new OrderShipmentUseCase(orderRepository, shipmentService);
+        public OrderShipmentUseCaseTest()
+        {
+            orderRepository = new TestOrderRepository();
+            shipmentService = new TestShipmentService();
+            useCase = new OrderShipmentUseCase(orderRepository, shipmentService);
+        }
 
-//        [Fact]
-//        public void shipApprovedOrder() throws Exception {
-//            Order initialOrder = new Order();
-//        initialOrder.setId(1);
-//        initialOrder.setStatus(OrderStatus.APPROVED);
-//        orderRepository.addOrder(initialOrder);
+        [Fact]
+        public void shipApprovedOrder()
+        {
+            Order initialOrder = new Order();
+            initialOrder.setId(1);
+            initialOrder.setStatus(OrderStatus.APPROVED);
+            orderRepository.addOrder(initialOrder);
 
-//        OrderShipmentRequest request = new OrderShipmentRequest();
-//        request.setOrderId(1);
+            OrderShipmentRequest request = new OrderShipmentRequest();
+            request.setOrderId(1);
 
-//        useCase.run(request);
+            useCase.run(request);
 
-//        assertThat(orderRepository.getSavedOrder().getStatus(), is(OrderStatus.SHIPPED));
-//        assertThat(shipmentService.getShippedOrder(), is(initialOrder));
-//    }
+            Assert.Equal(OrderStatus.SHIPPED, orderRepository.getSavedOrder().getStatus());
+            Assert.Equal(initialOrder, shipmentService.getShippedOrder());
+        }
 
-//    [Fact](expected = OrderCannotBeShippedException.class)
-//    public void createdOrdersCannotBeShipped() throws Exception {
-//    Order initialOrder = new Order();
-//    initialOrder.setId(1);
-//    initialOrder.setStatus(OrderStatus.CREATED);
-//    orderRepository.addOrder(initialOrder);
+        [Fact]
+        public void createdOrdersCannotBeShipped()
+        {
+            Order initialOrder = new Order();
+            initialOrder.setId(1);
+            initialOrder.setStatus(OrderStatus.CREATED);
+            orderRepository.addOrder(initialOrder);
 
-//    OrderShipmentRequest request = new OrderShipmentRequest();
-//    request.setOrderId(1);
+            OrderShipmentRequest request = new OrderShipmentRequest();
+            request.setOrderId(1);
 
-//    useCase.run(request);
+            Assert.Throws<OrderCannotBeShippedException>(() => useCase.run(request));
 
-//    assertThat(orderRepository.getSavedOrder(), is(nullValue()));
-//    assertThat(shipmentService.getShippedOrder(), is(nullValue()));
-//    }
+            Assert.Null(orderRepository.getSavedOrder());
+            Assert.Null(shipmentService.getShippedOrder());
+        }
 
-//    [Fact](expected = OrderCannotBeShippedException.class)
-//    public void rejectedOrdersCannotBeShipped() throws Exception {
-//    Order initialOrder = new Order();
-//    initialOrder.setId(1);
-//    initialOrder.setStatus(OrderStatus.REJECTED);
-//    orderRepository.addOrder(initialOrder);
+        [Fact]
+        public void rejectedOrdersCannotBeShipped()
+        {
+            Order initialOrder = new Order();
+            initialOrder.setId(1);
+            initialOrder.setStatus(OrderStatus.REJECTED);
+            orderRepository.addOrder(initialOrder);
 
-//    OrderShipmentRequest request = new OrderShipmentRequest();
-//    request.setOrderId(1);
+            OrderShipmentRequest request = new OrderShipmentRequest();
+            request.setOrderId(1);
 
-//    useCase.run(request);
+            Assert.Throws<OrderCannotBeShippedException>(() => useCase.run(request));
 
-//    assertThat(orderRepository.getSavedOrder(), is(nullValue()));
-//    assertThat(shipmentService.getShippedOrder(), is(nullValue()));
-//    }
+            Assert.Null(orderRepository.getSavedOrder());
+            Assert.Null(shipmentService.getShippedOrder());
+        }
 
-//    [Fact](expected = OrderCannotBeShippedTwiceException.class)
-//    public void shippedOrdersCannotBeShippedAgain() throws Exception {
-//    Order initialOrder = new Order();
-//    initialOrder.setId(1);
-//    initialOrder.setStatus(OrderStatus.SHIPPED);
-//    orderRepository.addOrder(initialOrder);
+        [Fact]
+        public void shippedOrdersCannotBeShippedAgain()
+        {
+            Order initialOrder = new Order();
+            initialOrder.setId(1);
+            initialOrder.setStatus(OrderStatus.SHIPPED);
+            orderRepository.addOrder(initialOrder);
 
-//    OrderShipmentRequest request = new OrderShipmentRequest();
-//    request.setOrderId(1);
+            OrderShipmentRequest request = new OrderShipmentRequest();
+            request.setOrderId(1);
 
-//    useCase.run(request);
+            Assert.Throws<OrderCannotBeShippedTwiceException>(() => useCase.run(request));
 
-//    assertThat(orderRepository.getSavedOrder(), is(nullValue()));
-//    assertThat(shipmentService.getShippedOrder(), is(nullValue()));
-//    }
-//    }
-//}
+            Assert.Null(orderRepository.getSavedOrder());
+            Assert.Null(shipmentService.getShippedOrder());
+        }
+    }
+}
