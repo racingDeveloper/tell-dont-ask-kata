@@ -4,38 +4,47 @@ namespace TellDontAsk.Domain
 {
     public class Product
     {
-        private String name;
-        private decimal price;
-        private Category category;
+        public Product()
+        {
+        }
+        public Product(string name, decimal price, Category category)
+        {
+            Name = name;
+            Price = price;
+            Category = category;
+        }
+        public string Name { get; private set; }
+        public decimal Price { get; private set; }
+        public Category Category { get; private set; }
 
         public String getName()
         {
-            return name;
+            return Name;
         }
 
         public void setName(String name)
         {
-            this.name = name;
+            this.Name = name;
         }
 
         public decimal getPrice()
         {
-            return price;
+            return Price;
         }
 
         public void setPrice(decimal price)
         {
-            this.price = price;
+            this.Price = price;
         }
 
         public Category getCategory()
         {
-            return category;
+            return Category;
         }
 
         public void setCategory(Category category)
         {
-            this.category = category;
+            this.Category = category;
         }
     }
 }

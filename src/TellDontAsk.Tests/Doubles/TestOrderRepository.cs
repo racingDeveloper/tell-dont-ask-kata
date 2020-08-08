@@ -22,7 +22,7 @@ namespace TellDontAsk.Tests.Doubles
 
         public Order getById(int orderId)
         {
-            return orders.First(o => o.getId() == orderId);
+            return orders.FirstOrDefault(o => o.getId() == orderId);
         }
 
         public void addOrder(Order order)
