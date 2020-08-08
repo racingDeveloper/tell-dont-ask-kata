@@ -1,6 +1,8 @@
 # tell don't ask kata
 A legacy refactor kata, focused on the violation of the [tell don't ask](https://pragprog.com/articles/tell-dont-ask) principle and the [anemic domain model](https://martinfowler.com/bliki/AnemicDomainModel.html).
 
+This is forked from [a java kata](https://github.com/racingDeveloper/tell-dont-ask-kata) created by [@racingDeveloper](https://twitter.com/racingDeveloper) and translated to C# by me.
+
 ## Instructions
 Here you find a simple order flow application. It's able to create orders, do some calculation (totals and taxes), and manage them (approval/reject and shipment).
 
@@ -19,10 +21,3 @@ If you can remove some test cases because they don't make sense anymore (eg: you
 
 ## Contribute
 If you would like to contribute to this kata adding new cases or smells: please open a pull request!
-
-## Feedback
-Feedback is welcome!
-
-How did you find the kata? Did you learn anything from it?
-
-Please contact me on twitter [@racingDeveloper](https://twitter.com/racingDeveloper) or use the GitHub repo wiki!
