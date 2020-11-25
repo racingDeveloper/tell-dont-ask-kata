@@ -1,0 +1,29 @@
+{
+    "name": "archel/tell-dont-ask",
+    "description": "The kata https://github.com/gabrieletondi/tell-dont-ask-kata in php",
+    "type": "codekata",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Daniel Jordi Pérez",
+            "email": "danipq26@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.2"
+    },
+    "autoload": {
+      "psr-4": {"Archel\\TellDontAsk\\": "src/"}
+    },
+    "autoload-dev": {
+      "psr-4": {
+        "Archel\\TellDontAskTest\\": "tests/"
+      }
+    },
+    "config": {
+      "optimize-autoloader": true
+    }
+}
