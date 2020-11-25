@@ -1,0 +1,34 @@
+{
+  "name": "tell-dont-ask-kata-typescript",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "jest --watch"
+  },
+  "author": "Eduard Maura <edu.maura.puig@gmail.com>",
+  "repository": "https://github.com/mapu77/tell-dont-ask-kata",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "js-big-decimal": "^1.1.8"
+  },
+  "devDependencies": {
+    "@types/jest": "^22.2.3",
+    "jest": "^22.4.3",
+    "ts-jest": "^22.4.4",
+    "typescript": "^2.8.3"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "\\.test\\.ts",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  }
+}
