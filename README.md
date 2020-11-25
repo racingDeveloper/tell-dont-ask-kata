@@ -19,5 +19,6 @@ If you can remove some test cases because they don't make sense anymore (eg: you
 
 ## Credit
 The Kata was originally authored by [@racingDeveloper](https://twitter.com/racingDeveloper)
-
-The CSharp version was made by [raullorca](https://github.com/raullorca/TellDontAskKata)
+Typescript and Python3 versions by [mapu77](https://github.com/mapu77/tell-dont-ask-kata)
+PHP version by [Archel](https://github.com/Archel/tell-don-t-ask-kata-php)
+CSharp version by [raullorca](https://github.com/raullorca/TellDontAskKata)
