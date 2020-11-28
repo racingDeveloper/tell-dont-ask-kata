@@ -22,4 +22,4 @@ The Kata was originally authored by [@racingDeveloper](https://twitter.com/racin
 Typescript and Python3 versions by [mapu77](https://github.com/mapu77/tell-dont-ask-kata)\
 PHP version by [Archel](https://github.com/Archel/tell-don-t-ask-kata-php)\
 CSharp version by [raullorca](https://github.com/raullorca/TellDontAskKata)\
-Kotlin and Java+Lombok versions by [@gregorriegler](https://twitter.com/gregor_riegler)
+Kotlin and Java+Lombok versions by [@gregor_riegler](https://twitter.com/gregor_riegler)
