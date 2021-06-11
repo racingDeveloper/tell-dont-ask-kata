@@ -1,0 +1,54 @@
+{
+  "env": {
+      "es6": true,
+      "browser": false,
+      "node": true,
+      "mocha": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+      "ecmaVersion": 2020
+  },
+  "plugins": [ "@typescript-eslint" ],
+  "globals": {
+    "Logger": true
+  },
+  "rules": {
+      "@typescript-eslint/indent": [
+          "error",
+          2,
+          { "SwitchCase": 1 }
+      ],
+      "@typescript-eslint/naming-convention": [
+        "warn",
+        { "selector": "variableLike", "format": ["camelCase"] }
+      ],
+      "@typescript-eslint/no-var-requires": "warn",
+      "@typescript-eslint/no-use-before-define": 0,
+      "@typescript-eslint/explicit-function-return-type": [
+        "warn",
+        {
+          "allowExpressions": true
+        }
+      ],
+      "linebreak-style": [ "error", "unix" ],
+      "quotes": [ "error", "single" ],
+      "semi": [ "error", "always" ],
+      "eqeqeq": [ 1, "smart" ],
+      "no-console": 1,
+      "no-var": "error",
+      "prefer-const": "warn",
+      "@typescript-eslint/no-empty-function": ["error", { "allow": ["arrowFunctions"] }],
+      "@typescript-eslint/ban-ts-comment": "warn",
+      "eol-last": [ "error", "always" ],
+      "space-infix-ops": "error",
+      "arrow-spacing": "error",
+      "no-trailing-spaces": "error",
+      "@typescript-eslint/no-inferrable-types": "off",
+      "no-undef": "off"
+  }
+}
