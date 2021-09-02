@@ -1,3 +1,5 @@
+import SellItemRequest from "./SellItemRequest";
+
 class SellItemsRequest {
   private requests: SellItemRequest[];
 
