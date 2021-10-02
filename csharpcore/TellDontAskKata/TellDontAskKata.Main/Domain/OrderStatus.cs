@@ -1,4 +1,4 @@
-﻿namespace TellDontAskKata.Main
+﻿namespace TellDontAskKata.Main.Domain
 {
     public enum OrderStatus
     {

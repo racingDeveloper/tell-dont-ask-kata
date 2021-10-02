@@ -5,7 +5,7 @@ using TellDontAskKata.Main.Repository;
 
 namespace TellDontAskKata.Tests.Doubles
 {
-    public class InMemoryProductCatalog : IProductCatalog;
+    public class InMemoryProductCatalog : IProductCatalog
     {
         private readonly IList<Product> _products;
 
