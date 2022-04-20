@@ -4,3 +4,12 @@ target
 .vscode
 
 node_modules/
+
+#scala
+target/
+*.class
+*.log
+.bsp/
+
+#Mac
+.DS_Store
