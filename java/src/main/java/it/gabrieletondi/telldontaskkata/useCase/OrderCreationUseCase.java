@@ -2,13 +2,11 @@ package it.gabrieletondi.telldontaskkata.useCase;
 
 import it.gabrieletondi.telldontaskkata.domain.Order;
 import it.gabrieletondi.telldontaskkata.domain.OrderItem;
-import it.gabrieletondi.telldontaskkata.domain.OrderStatus;
 import it.gabrieletondi.telldontaskkata.domain.Product;
 import it.gabrieletondi.telldontaskkata.repository.OrderRepository;
 import it.gabrieletondi.telldontaskkata.repository.ProductCatalog;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import static java.math.BigDecimal.valueOf;
 import static java.math.RoundingMode.HALF_UP;
@@ -32,10 +30,10 @@ public class OrderCreationUseCase {
                 throw new UnknownProductException();
             }
             else {
-                final BigDecimal unitaryTax = product.getPrice().divide(valueOf(100)).multiply(product.getCategory().getTaxPercentage()).setScale(2, HALF_UP);
-                final BigDecimal unitaryTaxedAmount = product.getPrice().add(unitaryTax).setScale(2, HALF_UP);
-                final BigDecimal taxedAmount = unitaryTaxedAmount.multiply(BigDecimal.valueOf(itemRequest.getQuantity())).setScale(2, HALF_UP);
-                final BigDecimal taxAmount = unitaryTax.multiply(BigDecimal.valueOf(itemRequest.getQuantity()));
+                final BigDecimal unitaryTax = product.calculateTax();
+                final BigDecimal unitaryTaxedAmount = product.calculatePriceWithTax();
+                final BigDecimal taxedAmount = getTaxedAmount(itemRequest.getQuantity(), unitaryTaxedAmount);
+                final BigDecimal taxAmount = getTaxAmount(itemRequest.getQuantity(), unitaryTax);
 
                 final OrderItem orderItem = new OrderItem();
                 orderItem.setProduct(product);
@@ -50,5 +48,14 @@ public class OrderCreationUseCase {
         }
 
         orderRepository.save(order);
+    }
+
+    private BigDecimal getTaxAmount(int quantity, BigDecimal unitaryTax) {
+        return unitaryTax.multiply(BigDecimal.valueOf(quantity));
+    }
+
+    private BigDecimal getTaxedAmount(int quantity, BigDecimal unitaryTaxedAmount) {
+        return unitaryTaxedAmount.multiply(BigDecimal.valueOf(quantity))
+            .setScale(2, HALF_UP);
     }
 }
