@@ -66,17 +66,28 @@ public class Order {
         this.id = id;
     }
 
-    public void handleRequest(OrderApprovalRequest request) {
+    public void approve() {
         if (status.equals(OrderStatus.SHIPPED)) {
             throw new ShippedOrdersCannotBeChangedException();
         }
-        if (request.isApproved() && status.equals(OrderStatus.REJECTED)) {
+
+        if (status.equals(OrderStatus.REJECTED)) {
             throw new RejectedOrderCannotBeApprovedException();
         }
-        if (!request.isApproved() && status.equals(OrderStatus.APPROVED)) {
+
+        setStatus(OrderStatus.APPROVED);
+    }
+
+    public void reject() {
+        if (status.equals(OrderStatus.SHIPPED)) {
+            throw new ShippedOrdersCannotBeChangedException();
+        }
+
+        if (status.equals(OrderStatus.APPROVED)) {
             throw new ApprovedOrderCannotBeRejectedException();
         }
-        setStatus(request.isApproved() ? OrderStatus.APPROVED : OrderStatus.REJECTED);
+
+        setStatus(OrderStatus.REJECTED);
     }
 
     public void handleRequest(OrderShipmentRequest request) {
