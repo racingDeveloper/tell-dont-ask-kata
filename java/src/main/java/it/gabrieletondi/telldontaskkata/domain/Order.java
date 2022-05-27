@@ -90,12 +90,15 @@ public class Order {
         setStatus(OrderStatus.REJECTED);
     }
 
-    public void handleRequest(OrderShipmentRequest request) {
+    public void markAsShipped() {
         if (status.equals(OrderStatus.CREATED) || status.equals(OrderStatus.REJECTED)) {
             throw new OrderCannotBeShippedException();
         }
+
         if (status.equals(OrderStatus.SHIPPED)) {
             throw new OrderCannotBeShippedTwiceException();
         }
+
+        setStatus(OrderStatus.SHIPPED);
     }
 }

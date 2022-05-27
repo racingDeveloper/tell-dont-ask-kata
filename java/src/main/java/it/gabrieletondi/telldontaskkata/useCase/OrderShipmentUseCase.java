@@ -21,13 +21,9 @@ public class OrderShipmentUseCase {
     public void run(OrderShipmentRequest request) {
         final Order order = orderRepository.getById(request.getOrderId());
 
-//        order.validate(request)
-        order.handleRequest(request);
-
+        order.markAsShipped();
         shipmentService.ship(order);
 
-//        order.ship()
-        order.setStatus(OrderStatus.SHIPPED);
         orderRepository.save(order);
     }
 }
