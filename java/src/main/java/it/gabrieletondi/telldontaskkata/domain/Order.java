@@ -77,6 +77,13 @@ public class Order {
         this.id = id;
     }
 
+    public void addItem(final OrderItem item, final BigDecimal taxedAmount, final BigDecimal taxAmount) {
+        items.add(item);
+
+        setTotal(total.add(taxedAmount));
+        setTax(tax.add(taxAmount));
+    }
+
     public void approve() {
         if (status.equals(OrderStatus.SHIPPED)) {
             throw new ShippedOrdersCannotBeChangedException();
