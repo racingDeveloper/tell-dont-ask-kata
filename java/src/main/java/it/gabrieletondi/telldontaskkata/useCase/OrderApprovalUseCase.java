@@ -15,6 +15,8 @@ public class OrderApprovalUseCase {
         final Order order = orderRepository.getById(request.getOrderId());
 
         order.handleRequest(request);
+//        order.validateRequest(request)
+//        order.approve()
         orderRepository.save(order);
     }
 }

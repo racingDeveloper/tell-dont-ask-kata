@@ -2,6 +2,8 @@ package it.gabrieletondi.telldontaskkata.domain;
 
 import it.gabrieletondi.telldontaskkata.useCase.ApprovedOrderCannotBeRejectedException;
 import it.gabrieletondi.telldontaskkata.useCase.OrderApprovalRequest;
+import it.gabrieletondi.telldontaskkata.useCase.OrderCannotBeShippedException;
+import it.gabrieletondi.telldontaskkata.useCase.OrderCannotBeShippedTwiceException;
 import it.gabrieletondi.telldontaskkata.useCase.OrderShipmentRequest;
 import it.gabrieletondi.telldontaskkata.useCase.RejectedOrderCannotBeApprovedException;
 import it.gabrieletondi.telldontaskkata.useCase.ShippedOrdersCannotBeChangedException;
@@ -78,6 +80,11 @@ public class Order {
     }
 
     public void handleRequest(OrderShipmentRequest request) {
-//        TODO
+        if (status.equals(OrderStatus.CREATED) || status.equals(OrderStatus.REJECTED)) {
+            throw new OrderCannotBeShippedException();
+        }
+        if (status.equals(OrderStatus.SHIPPED)) {
+            throw new OrderCannotBeShippedTwiceException();
+        }
     }
 }
