@@ -3,11 +3,11 @@ package it.gabrieletondi.telldontaskkata.useCase;
 import it.gabrieletondi.telldontaskkata.domain.Order;
 import it.gabrieletondi.telldontaskkata.domain.OrderStatus;
 import it.gabrieletondi.telldontaskkata.doubles.TestOrderRepository;
-import org.junit.Test;
 
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import org.junit.jupiter.api.Test;
 
 public class OrderApprovalUseCaseTest {
     private final TestOrderRepository orderRepository = new TestOrderRepository();
@@ -27,7 +27,7 @@ public class OrderApprovalUseCaseTest {
         useCase.run(request);
 
         final Order savedOrder = orderRepository.getSavedOrder();
-        assertThat(savedOrder.getStatus(), is(OrderStatus.APPROVED));
+        assertThat(savedOrder.getStatus()).isEqualTo(OrderStatus.APPROVED);
     }
 
     @Test
@@ -44,10 +44,10 @@ public class OrderApprovalUseCaseTest {
         useCase.run(request);
 
         final Order savedOrder = orderRepository.getSavedOrder();
-        assertThat(savedOrder.getStatus(), is(OrderStatus.REJECTED));
+        assertThat(savedOrder.getStatus()).isEqualTo(OrderStatus.REJECTED);
     }
 
-    @Test(expected = RejectedOrderCannotBeApprovedException.class)
+    @Test
     public void cannotApproveRejectedOrder() throws Exception {
         Order initialOrder = new Order();
         initialOrder.setStatus(OrderStatus.REJECTED);
@@ -58,12 +58,11 @@ public class OrderApprovalUseCaseTest {
         request.setOrderId(1);
         request.setApproved(true);
 
-        useCase.run(request);
-
-        assertThat(orderRepository.getSavedOrder(), is(nullValue()));
+        assertThatThrownBy(() -> useCase.run(request)).isExactlyInstanceOf(RejectedOrderCannotBeApprovedException.class);
+        assertThat(orderRepository.getSavedOrder()).isNull();
     }
 
-    @Test(expected = ApprovedOrderCannotBeRejectedException.class)
+    @Test
     public void cannotRejectApprovedOrder() throws Exception {
         Order initialOrder = new Order();
         initialOrder.setStatus(OrderStatus.APPROVED);
@@ -73,13 +72,12 @@ public class OrderApprovalUseCaseTest {
         OrderApprovalRequest request = new OrderApprovalRequest();
         request.setOrderId(1);
         request.setApproved(false);
-
-        useCase.run(request);
-
-        assertThat(orderRepository.getSavedOrder(), is(nullValue()));
+        
+        assertThatThrownBy(() -> useCase.run(request)).isExactlyInstanceOf(ApprovedOrderCannotBeRejectedException.class);
+        assertThat(orderRepository.getSavedOrder()).isNull();
     }
 
-    @Test(expected = ShippedOrdersCannotBeChangedException.class)
+    @Test
     public void shippedOrdersCannotBeApproved() throws Exception {
         Order initialOrder = new Order();
         initialOrder.setStatus(OrderStatus.SHIPPED);
@@ -90,12 +88,11 @@ public class OrderApprovalUseCaseTest {
         request.setOrderId(1);
         request.setApproved(true);
 
-        useCase.run(request);
-
-        assertThat(orderRepository.getSavedOrder(), is(nullValue()));
+        assertThatThrownBy(() -> useCase.run(request)).isExactlyInstanceOf(ShippedOrdersCannotBeChangedException.class);
+        assertThat(orderRepository.getSavedOrder()).isNull();
     }
 
-    @Test(expected = ShippedOrdersCannotBeChangedException.class)
+    @Test
     public void shippedOrdersCannotBeRejected() throws Exception {
         Order initialOrder = new Order();
         initialOrder.setStatus(OrderStatus.SHIPPED);
@@ -106,8 +103,7 @@ public class OrderApprovalUseCaseTest {
         request.setOrderId(1);
         request.setApproved(false);
 
-        useCase.run(request);
-
-        assertThat(orderRepository.getSavedOrder(), is(nullValue()));
+        assertThatThrownBy(() -> useCase.run(request)).isExactlyInstanceOf(ShippedOrdersCannotBeChangedException.class);
+        assertThat(orderRepository.getSavedOrder()).isNull();
     }
 }
