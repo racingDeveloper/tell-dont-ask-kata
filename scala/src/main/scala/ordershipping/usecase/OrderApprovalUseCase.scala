@@ -3,7 +3,7 @@ package ordershipping.usecase
 import ordershipping.domain.OrderStatus
 import ordershipping.repository.OrderRepository
 
-class OrderApprovalUseCase(val orderRepository: OrderRepository) {
+class OrderApprovalUseCase(private val orderRepository: OrderRepository) {
   def run(request: OrderApprovalRequest): Unit = {
     orderRepository
       .getById(request.orderId)

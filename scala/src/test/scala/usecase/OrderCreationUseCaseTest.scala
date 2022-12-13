@@ -2,12 +2,7 @@ package usecase
 
 import doubles.{InMemoryProductCatalog, TestOrderRepository}
 import ordershipping.domain.{Category, OrderStatus, Product}
-import ordershipping.usecase.{
-  OrderCreationUseCase,
-  SellItemRequest,
-  SellItemsRequest,
-  UnknownProductException
-}
+import ordershipping.usecase.{OrderCreationUseCase, SellItemRequest, SellItemsRequest, UnknownProductException}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
@@ -44,7 +39,7 @@ class OrderCreationUseCaseTest
 
     useCase.run(request)
 
-    val insertedOrder = orderRepository.insertedOrder
+    val insertedOrder = orderRepository.savedOrder
     insertedOrder.status shouldBe OrderStatus.Created
     insertedOrder.total shouldBe 23.20
     insertedOrder.tax shouldBe 2.13
