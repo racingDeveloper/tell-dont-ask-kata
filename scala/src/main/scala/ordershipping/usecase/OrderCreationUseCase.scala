@@ -6,8 +6,8 @@ import ordershipping.repository.{OrderRepository, ProductCatalog}
 import scala.collection.mutable
 
 class OrderCreationUseCase(
-    private val orderRepository: OrderRepository,
-    private val productCatalog: ProductCatalog
+    val orderRepository: OrderRepository,
+    val productCatalog: ProductCatalog
 ) {
   def run(request: SellItemsRequest): Unit = {
     val order = new Order(

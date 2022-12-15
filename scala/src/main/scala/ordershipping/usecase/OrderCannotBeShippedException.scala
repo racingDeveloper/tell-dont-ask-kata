@@ -1,3 +1,3 @@
 package ordershipping.usecase
 
-final case class OrderCannotBeShippedException() extends Exception {}
+final case class OrderCannotBeShippedException() extends Exception
