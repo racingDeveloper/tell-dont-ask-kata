@@ -15,6 +15,7 @@ public class Order {
         return total;
     }
 
+
     public void setTotal(BigDecimal total) {
         this.total = total;
     }
