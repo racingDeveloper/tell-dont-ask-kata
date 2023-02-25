@@ -28,27 +28,29 @@ public class OrderCreationUseCase {
         Order order = new Order(new BigDecimal("0.00"), "EUR", new ArrayList<>(), new BigDecimal("0.00"), OrderStatus.CREATED);
 
         for (SellItemRequest itemRequest : request.getRequests()) {
-            Product product = productCatalog.getByName(itemRequest.getProductName());
-
-            Optional.ofNullable(product).orElseThrow(() -> new UnknownProductException());
-
-            BigDecimal productPrice = product.getPrice();
-            final BigDecimal unitaryTax = product.getUnitaryTax(productPrice);
-
-            final BigDecimal unitaryTaxedAmount = productPrice.add(unitaryTax).setScale(2, HALF_UP);
-            final BigDecimal taxedAmount = getTaxedAmount(unitaryTaxedAmount, BigDecimal.valueOf(itemRequest.getQuantity()))
-                    .setScale(2, HALF_UP);
-            final BigDecimal taxAmount = getTaxedAmount(unitaryTax, BigDecimal.valueOf(itemRequest.getQuantity()));
-
-            final OrderItem orderItem = new OrderItem(product, itemRequest.getQuantity(), taxedAmount, taxAmount);
-            order.addOrderItem(orderItem);
-
-            order.addTotal(taxedAmount);
-            order.addTax(taxAmount);
-
+            addOrderItemAndTax(order, itemRequest);
         }
 
         orderRepository.save(order);
+    }
+
+    private void addOrderItemAndTax(Order order, SellItemRequest itemRequest) {
+        Product product = productCatalog.getByName(itemRequest.getProductName());
+
+        Optional.ofNullable(product).orElseThrow(UnknownProductException::new);
+
+        BigDecimal productPrice = product.getPrice();
+
+        final BigDecimal unitaryTax = product.getUnitaryTax(productPrice);
+        final BigDecimal unitaryTaxedAmount = productPrice.add(unitaryTax).setScale(2, HALF_UP);
+        final BigDecimal taxedAmount = getTaxedAmount(unitaryTaxedAmount, BigDecimal.valueOf(itemRequest.getQuantity()))
+                .setScale(2, HALF_UP);
+        final BigDecimal taxAmount = getTaxedAmount(unitaryTax, BigDecimal.valueOf(itemRequest.getQuantity()));
+
+        OrderItem orderItem = new OrderItem(product, itemRequest.getQuantity(), taxedAmount, taxAmount);
+        order.addOrderItem(orderItem);
+        order.addTotal(taxedAmount);
+        order.addTax(taxAmount);
     }
 
     public BigDecimal getTaxedAmount(BigDecimal amount, BigDecimal quantity) {
