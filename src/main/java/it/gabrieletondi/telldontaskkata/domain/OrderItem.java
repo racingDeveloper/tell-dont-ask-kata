@@ -1,7 +1,11 @@
 package it.gabrieletondi.telldontaskkata.domain;
 
-import java.math.BigDecimal;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderItem {
     private Product product;
     private int quantity;
