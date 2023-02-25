@@ -11,14 +11,8 @@ import static it.gabrieletondi.telldontaskkata.domain.OrderStatus.CREATED;
 import static it.gabrieletondi.telldontaskkata.domain.OrderStatus.REJECTED;
 import static it.gabrieletondi.telldontaskkata.domain.OrderStatus.SHIPPED;
 
-public class OrderShipmentUseCase {
-    private final OrderRepository orderRepository;
-    private final ShipmentService shipmentService;
-
-    public OrderShipmentUseCase(OrderRepository orderRepository, ShipmentService shipmentService) {
-        this.orderRepository = orderRepository;
-        this.shipmentService = shipmentService;
-    }
+public record OrderShipmentUseCase(OrderRepository orderRepository,
+                                   ShipmentService shipmentService) {
 
     public void run(OrderShipmentRequest request) {
         final Order order = Optional.ofNullable(orderRepository.getById(request.getOrderId()))
@@ -42,7 +36,7 @@ public class OrderShipmentUseCase {
         }
     }
 
-    public boolean isOrderShippable(Order order){
+    public boolean isOrderShippable(Order order) {
         return order.isOrderStatus(CREATED) || order.isOrderStatus(REJECTED);
     }
 }
