@@ -33,12 +33,16 @@ public class OrderShipmentUseCase {
     }
 
     public void validateOrder(Order order) {
-        if (order.getStatus().equals(CREATED) || order.getStatus().equals(REJECTED)) {
+        if (isOrderShippable(order)) {
             throw new OrderCannotBeShippedException();
         }
 
-        if (order.getStatus().equals(SHIPPED)) {
+        if (order.isOrderStatus(SHIPPED)) {
             throw new OrderCannotBeShippedTwiceException();
         }
+    }
+
+    public boolean isOrderShippable(Order order){
+        return order.isOrderStatus(CREATED) || order.isOrderStatus(REJECTED);
     }
 }

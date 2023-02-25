@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static it.gabrieletondi.telldontaskkata.domain.OrderStatus.CREATED;
+
 @NoArgsConstructor
 public class Order {
     public Order(BigDecimal total, String currency, List<OrderItem> items, BigDecimal tax, OrderStatus status) {
@@ -81,5 +83,9 @@ public class Order {
 
     public void addOrderItem(OrderItem orderItem){
         items.add(orderItem);
+    }
+
+    public Boolean isOrderStatus(OrderStatus orderStatus){
+        return this.getStatus().equals(orderStatus);
     }
 }
