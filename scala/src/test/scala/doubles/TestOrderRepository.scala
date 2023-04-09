@@ -6,8 +6,8 @@ import ordershipping.repository.OrderRepository
 import scala.collection.mutable
 
 class TestOrderRepository extends OrderRepository {
-  var insertedOrder: Order = _
-  val orders: mutable.MutableList[Order] = mutable.MutableList.empty
+  private var insertedOrder: Order = _
+  private val orders: mutable.MutableList[Order] = mutable.MutableList.empty
 
   override def save(order: Order): Unit =
     insertedOrder = order
@@ -16,4 +16,5 @@ class TestOrderRepository extends OrderRepository {
     orders.find(o => o.id == orderId)
 
   def addOrder(order: Order): Unit = orders += order
+  def savedOrder(): Order = insertedOrder
 }

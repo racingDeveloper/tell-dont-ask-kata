@@ -44,7 +44,7 @@ class OrderCreationUseCaseTest
 
     useCase.run(request)
 
-    val insertedOrder = orderRepository.insertedOrder
+    val insertedOrder = orderRepository.savedOrder()
     insertedOrder.status shouldBe OrderStatus.Created
     insertedOrder.total shouldBe 23.20
     insertedOrder.tax shouldBe 2.13
