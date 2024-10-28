@@ -2,11 +2,11 @@ class OrderShipmentRequest {
   private orderId: number;
 
   public setOrderId(orderId: number): void {
-      this.orderId = orderId;
+    this.orderId = orderId;
   }
 
   public getOrderId(): number {
-      return this.orderId;
+    return this.orderId;
   }
 }
 

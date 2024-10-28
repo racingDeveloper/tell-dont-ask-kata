@@ -1,21 +1,25 @@
 import Product from './Product';
+import SellItemRequest from '../request/SellItemRequest';
 
 class OrderItem {
-  private product: Product;
+  private readonly product: Product;
   private quantity: number;
-  private taxedAmount: number;
-  private tax: number;
+  private readonly taxedAmount: number;
+  private readonly tax: number;
+
+  constructor(product: Product, itemRequest: SellItemRequest) {
+    this.product = product;
+    this.quantity = itemRequest.getQuantity();
+    this.tax = product.getUnitaryTax() * this.quantity;
+    this.taxedAmount = product.getUnitaryTaxedAmount() * this.quantity;
+  }
 
   public getProduct(): Product {
     return this.product;
   }
 
-  public setProduct(product: Product): void {
-    this.product = product;
-  }
-
   public getQuantity(): number {
-      return this.quantity;
+    return this.quantity;
   }
 
   public setQuantity(quantity: number): void {
@@ -26,16 +30,8 @@ class OrderItem {
     return this.taxedAmount;
   }
 
-  public setTaxedAmount(taxedAmount: number): void {
-    this.taxedAmount = taxedAmount;
-  }
-
   public getTax(): number {
     return this.tax;
-  }
-
-  public setTax(tax: number): void {
-    this.tax = tax;
   }
 }
 

@@ -6,19 +6,19 @@ class TestOrderRepository implements OrderRepository {
   private orders: Order[] = [];
 
   public getSavedOrder(): Order {
-      return this.insertedOrder;
+    return this.insertedOrder;
   }
 
   public save(order: Order): void {
-      this.insertedOrder = order;
+    this.insertedOrder = order;
   }
 
   public getById(orderId: number): Order {
-      return this.orders.find(o => o.getId() == orderId);
+    return this.orders.find(o => o.getId() == orderId);
   }
 
   public addOrder(order: Order): void {
-      this.orders.push(order);
+    this.orders.push(order);
   }
 }
 
